@@ -32,6 +32,13 @@ class NewsService {
             .decode(type: NewsResponse.self, decoder: JSONDecoder())
             .map { $0.articles }
             .eraseToAnyPublisher()
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    print("Error fetching news: \(error)")
+                }
+            })
+            .eraseToAnyPublisher()
     }
 }
 

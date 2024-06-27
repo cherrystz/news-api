@@ -8,7 +8,9 @@
 import Foundation
 
 struct Article: Codable, Identifiable {
-    var id = UUID()
+    var id: UUID {
+        UUID()
+    }
     let title: String
     let description: String?
     let url: String
